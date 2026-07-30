@@ -395,6 +395,35 @@ p, span, li, .hero-description,
     line-height: 1.8;
 }
 
+.about-subheading {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    margin: 1.5rem 0 1rem;
+}
+
+.about-highlights {
+    list-style: none;
+    padding-left: 0;
+}
+
+.about-highlights li {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-light);
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.7;
+}
+
+.about-highlights li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
 /* Skills Section */
 .skills-grid {
     display: grid;
@@ -570,7 +599,21 @@ p, span, li, .hero-description,
 .experience-company {
     color: var(--primary-color);
     font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.experience-progression,
+.experience-highlight {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-light);
+    font-style: italic;
     margin-bottom: 1rem;
+}
+
+.experience-highlight {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-style: normal;
 }
 
 .experience-content ul {
@@ -665,6 +708,21 @@ p, span, li, .hero-description,
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
     border-bottom: 2px solid var(--border-color);
+}
+
+.project-meta {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.95rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.project-details p {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 1rem;
 }
 
 .project-details {
@@ -845,6 +903,13 @@ p, span, li, .hero-description,
 }
 
 /* Achievements Section */
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
 .achievement-content {
     max-width: 800px;
     margin: 0 auto;
@@ -882,6 +947,77 @@ p, span, li, .hero-description,
     color: var(--text-light);
     line-height: 1.8;
     margin-bottom: 1.5rem;
+}
+
+.achievement-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.achievement-list li {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-light);
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.6;
+}
+
+.achievement-list li::before {
+    content: '✅';
+    position: absolute;
+    left: 0;
+}
+
+.value-proposition {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-top: 2rem;
+}
+
+.value-intro {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    color: var(--text-light);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+}
+
+.value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.value-item {
+    background-color: var(--bg-white);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.value-item:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.value-item h4 {
+    font-family: 'Inter', sans-serif;
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+    font-size: 1.05rem;
+}
+
+.value-item p {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-light);
+    line-height: 1.6;
+    font-size: 0.95rem;
 }
 
 /* Interests Section */
@@ -935,6 +1071,49 @@ p, span, li, .hero-description,
 .interest-card p {
     color: var(--text-light);
     line-height: 1.6;
+}
+
+.cricket-stats {
+    margin-top: 1.5rem;
+    text-align: left;
+}
+
+.cricket-stats h4 {
+    font-family: 'Inter', sans-serif;
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.cricket-stats ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+.cricket-stats li {
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    padding-left: 1.25rem;
+    position: relative;
+    font-size: 0.95rem;
+}
+
+.cricket-stats li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+}
+
+.cricket-skills {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.cricket-link {
+    font-size: 0.9rem;
+    padding: 8px 20px;
 }
 
 /* Contact Section */
