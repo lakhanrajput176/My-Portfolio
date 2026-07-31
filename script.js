@@ -88,7 +88,7 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe all sections for animation
 document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('.skill-item, .project-card, .cert-card, .interest-card, .education-item, .experience-item, .achievement-card');
+    const animatedElements = document.querySelectorAll('.skill-item, .project-card, .cert-card, .interest-card, .education-item, .experience-item, .achievement-card, .value-item');
     
     animatedElements.forEach((el, index) => {
         el.style.opacity = '0';
@@ -247,164 +247,263 @@ const chatbotInput = document.getElementById('chatbot-input');
 const chatbotSend = document.getElementById('chatbot-send');
 const chatbotMessages = document.getElementById('chatbot-messages');
 
-// Chatbot knowledge base
-const chatbotResponses = {
-    greetings: [
-        "Hello! Welcome to Lakhan Singh's portfolio. I'm here to help you learn more about his professional background, experience, skills, projects, and achievements. What would you like to know?",
-        "Hi there! I can provide detailed information about Lakhan Singh's career as a Product Manager, his extensive experience in AI-powered products, and his impressive track record. How can I assist you today?",
-        "Hey! Great to meet you! I'm your guide to learning about Lakhan's journey from Software Engineer to Product Manager, his expertise in Conversational AI, and his successful product deliveries. What interests you most?"
-    ],
-    about: [
-        "Lakhan Singh is a highly accomplished Product Manager with 4+ years of experience driving AI-powered and SaaS-based product innovation across HR, Ecommerce, and Conversational AI platforms. He has proven success leading cross-functional teams to design, prioritize, and deliver intelligent chatbots, virtual assistants, and digital customer journeys. His journey from software engineer to product manager has equipped him with deep technical understanding, enabling him to lead cross-functional teams effectively. He specializes in AI, fintech, and design systems, with expertise in data-driven decision-making, growth strategies, and product-market fit validation. His passion lies in building intuitive, high-impact products that solve real user problems while achieving business objectives. With a track record of delivering measurable results—including automating 45% of query load through AI chatbots, improving customer satisfaction by 20%, and achieving >95% on-time sprint completion—he brings a results-oriented approach to product management.",
-        "Lakhan is a Product Manager with a strong background in Software Engineering, focused on delivering scalable, user-centric digital products that drive business impact. He has 4+ years of experience in product management, specializing in AI-powered solutions, fintech platforms, and conversational AI technologies. His expertise spans across managing product backlogs, defining roadmaps, and aligning stakeholders in Agile/Scrum environments to enhance customer satisfaction, operational efficiency, and business value. He is adept at working with cross-functional teams including design, analytics, and development teams to optimize product experiences. His technical background gives him a unique advantage in understanding complex systems and communicating effectively with engineering teams."
-    ],
-    skills: [
-        "Lakhan possesses a comprehensive skill set in Product Management and AI technologies. His core competencies include: Product Ownership (backlog prioritization, sprint planning, requirement grooming, product roadmaps), Conversational AI (Chatbots, Virtual Assistants, NLP, Dialogflow, Rasa, Conversational Banking Journeys), Customer Experience (Journey Design, Voice of Customer, CX Analytics, Personalization), Agile Delivery (Cross-Functional Collaboration, Scrum Team Coordination, UAT, Continuous Improvement), Analytics & Insights (Google Analytics GA4, Mixpanel, Power BI, A/B Testing, Adoption Metrics), and Leadership & Communication (Stakeholder Management, Risk Assessment, Compliance, Client Demos). His software engineering background also gives him proficiency in full-stack development, which helps him bridge the gap between technical teams and business stakeholders.",
-        "Lakhan's technical and product skills are extensive. In Product Strategy, he excels at vision development, roadmap planning, and market fit validation. His User Research capabilities include gathering insights and designing user-centric solutions. In Data Analytics, he's proficient with GA4, Mixpanel, Power BI, and A/B testing to drive data-driven decisions. His Agile/Scrum expertise includes sprint planning, cross-functional collaboration, and UAT processes. He's also skilled in Conversational AI technologies like NLP, Dialogflow, and Rasa for building intelligent chatbots. Additionally, his leadership skills enable him to manage stakeholders, assess risks, ensure compliance, and deliver client demos effectively."
-    ],
-    experience: [
-        "Lakhan's professional experience is impressive and diverse. Currently, he serves as Product Manager/Owner – AI & Digital Solutions at FlyTech Solution in Noida, India (Feb 2022 – Present). In this role, he owns product backlog and delivery roadmap for multiple AI-driven platforms across HRMS and E-commerce domains. He defined and delivered an AI-powered Employee Self-Service Chatbot integrating HR workflows, which automated 45% of query load and improved response time by 50%. He led the design of an AI-based Personal Shopping Assistant using recommendation algorithms and NLP-driven intent classification, improving engagement by 15%. He partners with design, analytics, and development teams to optimize conversational flows and enhance customer journey efficiency. He collaborates with business and technology stakeholders to assess operational risks and ensure adherence to organizational compliance standards. He drives iterative delivery of chatbot and analytics modules using Agile and Scrum frameworks, achieving >95% on-time sprint completion rate. He increased customer satisfaction scores by 20% through optimized conversational experiences and improved operational efficiency and self-service adoption across enterprise platforms. He leads multi-disciplinary teams across AI, analytics, and design, ensuring product-market fit.",
-        "Prior to his current role, Lakhan served as Business Head at RTL Technologies in Noida, India (Jan 2017 – Jan 2022). In this position, he oversaw client delivery and recruitment operations for US-based client projects. He gathered business requirements and optimized internal ATS workflows to enhance recruiter efficiency. He managed a 50+ member cross-functional team, ensuring alignment with client goals and SLAs. He collaborated with engineering teams to improve recruitment analytics and reporting dashboards. He boosted recruiter productivity by 20% and compliance tracking by 35%. He drove 40% client growth and strengthened long-term US partnerships. Before that, he was Project Head – Electronics Product Development at Three X Electronics in New Delhi, India (Jul 2014 – Dec 2016), where he headed development of starter relays, CDI units, ignition coils, switches, and assemblies, expanding product portfolio by 20%. He enforced quality protocols, achieving 95%+ first pass yield and reducing rework costs. He negotiated supplier contracts, lowering material costs by 10–15% and improving lead times by 25%. He drove product launches with sales teams, boosting new product sales by 30% YoY."
-    ],
-    projects: [
-        "Lakhan has led several high-impact projects. The Hospital-Focused HRMS Platform is a comprehensive HRMS solution tailored for healthcare institutions, addressing unique challenges of hospital workforce management. Key features include Vendor Management System with client job posting, vendor notifications, multi-round interview scheduling, selection/rejection workflows, background check (BGC) with color-coded clearance, and onboarding with knowledge transfer and asset management. The Payroll Management System features healthcare-specific pay structures, shift differentials, overtime calculations, integration with hospital billing systems, and salary slip generation. Advanced Attendance Tracking includes biometric integration, real-time monitoring, compliance with healthcare regulations, and automated login/logout time tracking. Intelligent Leave Management supports multiple leave types (Paid, Casual, Sick, Sabbatical, Maternity, Education) with automatic coverage scheduling. Smart Staff Scheduling provides 24/7 shift planning, skills-based assignment algorithms, emergency staffing protocols, and smart push notifications. The platform streamlined operations for 5+ healthcare facilities, reduced scheduling conflicts by 60%+, and improved compliance tracking efficiency by 50%.",
-        "The AI-Powered Employee Self-Service Chatbot is an intelligent HR assistant that automates routine HR queries and processes, enabling 24/7 employee self-service capabilities. Core AI capabilities include Smart Leave Request Processing with natural language understanding, automated approval workflows, and calendar integration. Intelligent Payslip Queries provide instant payslip generation, salary breakdown explanations, and tax calculation clarifications. Interactive Onboarding Support offers guided new employee orientation, document collection automation, and policy explanation. Dynamic HR Policy Guidance provides context-aware policy recommendations and real-time updates. The chatbot uses Natural Language Processing (NLP) for query understanding, Machine Learning models for intent recognition, and integrates with HR databases and systems. It achieved 40%+ reduction in HR department workload, 24/7 availability for employee queries, 85%+ query resolution without human intervention, and reduced response time from hours to seconds.",
-        "The AI-Powered Personal Shopping Assistant is a luxury e-commerce conversational commerce solution that guides customers with product discovery, gifting ideas, and styling recommendations. It features Conversational Commerce with natural language product discovery, personalized gifting recommendations, styling and fashion advice, and seasonal collection highlights. Smart Integrations include product catalogue system integration, CRM system connectivity, browsing history analysis, and purchase behavior tracking. The Personalization Engine learns customer preferences, provides dynamic product suggestions, and offers seasonal and trend-based recommendations. The solution boosted customer engagement and premium basket conversions by ~15%, strengthened brand positioning through high-touch digital experiences, enhanced luxury shopping experience with personalized interactions, and improved product discovery for seasonal collections."
-    ],
-    education: [
-        "Lakhan holds a Bachelor of Engineering (B.E.) in Electronics & Communication from Dr. A.P.J. Abdul Kalam Technical University, which he completed in 2014. This strong technical foundation in electronics and communication engineering has been instrumental in his career progression, providing him with deep understanding of technical systems and enabling his transition from software engineering to product management. His engineering background gives him a unique perspective when working with technical teams and understanding complex product architectures."
-    ],
-    certifications: [
-        "Lakhan has an extensive portfolio of professional certifications, particularly focused on AI, Product Management, and Business Analysis. In October 2025, he completed Generative AI Overview for Project Managers from Project Management Institute (PMI). In September 2025, he earned Advanced Business Analysis (35 IIBA PDUs) from Udemy, completed Electronic Arts Product Management Job Simulation and J.P. Morgan Quantitative Research Job Simulation through Forage, finished Fintech Product Management Bootcamp 2025 from Udemy, and achieved Super Certified status from Pendo.io. In August 2025, he completed multiple certifications including: AI Agents for Product Leaders from LinkedIn Learning, AI for Product Management from Pendo.io, Become a 10x Product Manager with ChatGPT & Generative AI from Udemy, Generative AI for Product Managers from LinkedIn Learning, Microsoft Copilot: The Art of Prompt Writing from LinkedIn Learning, Product Discovery Certification from Pendo.io, Product Management Basics Certification from Pendo.io, Prompt Engineering: How to Talk to the AIs from LinkedIn Learning, Radical Product Thinking: Vision Setting from Pendo.io, and Technical Product Management from LinkedIn Learning. These certifications demonstrate his commitment to continuous learning and expertise in AI-powered product management, generative AI tools, prompt engineering, product discovery, and technical product management.",
-        "Lakhan's certification portfolio showcases his deep expertise in AI and Product Management. He holds certifications from prestigious organizations including PMI, Pendo.io, LinkedIn Learning, Udemy, and Forage. His certifications span across Generative AI, Product Management fundamentals and advanced topics, Business Analysis, Prompt Engineering, Product Discovery, Technical Product Management, and Fintech. Notably, he has completed job simulations from Electronic Arts and J.P. Morgan, demonstrating practical application of skills. His Super Certified status from Pendo.io indicates mastery across multiple product management domains. These certifications collectively represent a comprehensive skill set in modern product management, AI integration, and business analysis, positioning him as a highly qualified Product Manager with cutting-edge knowledge in AI-powered product development."
-    ],
-    achievements: [
-        "Lakhan's Be10x AI Tools Mastery Program achievement has been transformative for his professional capabilities. The program has significantly enhanced his skills in AI-powered product management through comprehensive learning modules and hands-on practice with cutting-edge AI tools. He gained deep insights into how artificial intelligence can be leveraged to drive product innovation, improve customer experiences, and optimize business processes. The structured curriculum, combined with expert guidance on AI tools and their practical applications, enabled him to master complex skills that he now applies effectively in his role as a Product Manager. This program has particularly strengthened his ability to integrate AI solutions like chatbots, NLP technologies, and recommendation engines into product roadmaps. The impact extends beyond technical knowledge—it has instilled in him a strategic mindset that helps him approach product challenges with innovative AI-driven solutions, ultimately enhancing his ability to deliver scalable, intelligent products that drive business value.",
-        "Throughout his career, Lakhan has achieved remarkable results. At FlyTech Solution, he automated 45% of query load through AI chatbots and improved response time by 50%. He increased customer satisfaction scores by 20% through optimized conversational experiences. He achieved >95% on-time sprint completion rate using Agile and Scrum frameworks. At RTL Technologies, he boosted recruiter productivity by 20% and compliance tracking by 35%, while driving 40% client growth. At Three X Electronics, he expanded product portfolio by 20%, achieved 95%+ first pass yield, reduced material costs by 10–15%, and boosted new product sales by 30% YoY. These achievements demonstrate his consistent track record of delivering measurable business impact."
-    ],
-    contact: [
-        "You can reach Lakhan through multiple channels. Email: lakhan.rajputaipm@gmail.com. Phone: +91 9690902424. Location: Noida, India. For professional networking, connect with him on LinkedIn at linkedin.com/in/lakhan-rajput-0119/. You can also view his detailed portfolio at beautiful-blossom-08b.notion.site/Lakhan-Singh-Product-Manager-Portfolio. He's always open to discussing new opportunities, collaborations, or just having a conversation about product management, AI technologies, or innovative solutions. Feel free to reach out!"
-    ],
-    default: [
-        "I can provide detailed information about Lakhan's experience, skills, projects, education, certifications, achievements, or contact information. You can ask me about his background as a Product Manager, his work at FlyTech Solution, his AI-powered projects, his technical skills, his career journey, or how to get in touch with him. What specific information would you like to know?",
-        "I'm here to help you learn about Lakhan Singh! I can tell you in detail about his 4+ years of Product Management experience, his expertise in AI and Conversational AI, his major projects including the HRMS platform and chatbots, his skills and certifications, his career achievements, or his contact information. What would you like to explore?",
-        "Feel free to ask me anything about Lakhan! I can provide comprehensive details about his professional background, his current role as Product Manager at FlyTech Solution, his previous experience at RTL Technologies and Three X Electronics, his projects and their impact, his technical and product management skills, his education and certifications, or how to connect with him. What interests you?"
-    ]
+// Chatbot knowledge base - aligned with Lakhan Singh's AI Product Manager portfolio
+const chatbotKnowledge = {
+    profile: `Lakhan Singh is a Sr. Product Manager specializing in enterprise B2B SaaS platforms across Conversational AI (Banking), Healthcare HRMS, and E-commerce AI, with 6+ years owning products end-to-end and delivering measurable business impact.
+
+Location: Noida, India | Phone: +91 9690902424 | Email: lakhan.rajputaipm@gmail.com
+LinkedIn: linkedin.com/in/lakkhan-siingh-la0119
+Portfolio: beautiful-blossom-08b.notion.site/Lakhan-Singh-AI-Product-Manager-Portfolio`,
+
+    summary: `Product Manager with 6+ years owning B2B enterprise SaaS platforms across HSBC Conversational AI (Banking), Healthcare HRMS & AI HR chatbot, and E-commerce AI (Personal Shopping Assistant). Skilled in translating business strategy into technical roadmaps using Agile/Scrum, NLP/LLM-powered conversational platforms, and data-driven product analytics.
+
+Key highlights:
+- Increased chatbot containment 68% -> 82% across India, Hong Kong, and Singapore
+- Improved NPS by 11 points through conversational experience optimization
+- Increased self-service adoption 27% and reduced live-agent transfers 24%
+- Identified $735K+ projected operational savings (2027)
+- Built AI employee self-service chatbot automating 45% of queries, reducing response time 50%
+- Delivered AI Personal Shopping Assistant serving 1M+ customers, increasing engagement 15%
+- Managed enterprise SaaS platforms serving 52,300+ users; achieved 95%+ sprint success`,
+
+    skills: `Core Skills & Expertise:
+
+Product Ownership: Product Strategy, Roadmapping, Discovery, Backlog Prioritization, Sprint Planning, User Stories, Business Case Development
+
+AI & Machine Learning: Conversational AI, NLP, LLM-powered solutions, Intelligent Automation, Recommendation Engines, Dialogflow
+
+Technical & Cloud: AWS Cloud, APIs & Integrations, SaaS Architecture, Enterprise Platforms
+
+Customer & Market: Customer Journey Mapping, Voice of Customer, Competitive Analysis, Go-to-Market, User Research
+
+Analytics & Insights: GA4, Mixpanel, A/B Testing / Experimentation, KPI Tracking
+
+Leadership: Cross-functional stakeholder management (12-20 stakeholders), Executive communication, Risk & Compliance, Agile/Scrum delivery
+
+Tools & Technology: Claude, ChatGPT, Perplexity, SQL, Jira, Confluence`,
+
+    experienceProtiviti: `Digital Product Manager - Conversational AI (HSBC Client Engagement)
+Protiviti India | Deputy Manager | Noida, India | Nov 2025 - Present
+
+- Owns end-to-end product lifecycle for HSBC's enterprise Conversational AI platform across India, Hong Kong, and Singapore
+- Leads product ownership for the Credit Card Account Closure chatbot (Singapore market)
+- Drove bot containment 68% -> 82%, improved NPS by 11 points, increased self-service adoption 27%, reduced live-agent transfers 24%
+- Coordinates 12-20 stakeholders across engineering, architecture, delivery, QA, conversation design, SRE/platform, and Security/Privacy/Risk/Compliance/Accessibility
+- Identified $735K+ projected operational savings (2027) across three markets
+- Defines product vision, roadmap, release plans; translates business requirements into conversational flows and user stories
+- Conducts competitive benchmarking of conversational banking capabilities
+- Leads backlog management, sprint planning, and acceptance criteria across delivery pods in three markets`,
+
+    experienceCloudsR: `Senior Product Manager - Enterprise SaaS & AI Solutions
+CloudsR Technology | Noida, India | Jan 2020 - Nov 2025
+Progressed: Associate Product Manager -> Product Manager -> Senior Product Manager
+
+- Owned end-to-end product lifecycle for B2B enterprise HRMS SaaS serving 52,300+ users across hospital and enterprise clients
+- Layered AI-powered Employee Self-Service chatbot: automated 45% of queries, cut response time 50%
+- Owned e-commerce AI Personal Shopping Assistant (ML/NLP, Dialogflow): increased engagement 15% across 1M+ customers
+- Directed AWS-hosted deployment and scaling; partnered with Data Scientists, AI Engineers, UX Designers
+- Delivered 95%+ sprint success and improved customer satisfaction 20%
+- Ensured compliance with enterprise governance, security, and organizational standards throughout SDLC`,
+
+    experienceThreeX: `Project Head - Electronics Product Development
+Three X Electronics | New Delhi, India | Jul 2014 - Dec 2019
+
+Key Achievement: Expanded product portfolio by 20% and boosted new product sales by 30% YoY
+
+- Headed development of starter relays, CDI units, ignition coils, switches, and assemblies
+- Streamlined design-to-production workflows, cutting time-to-market by 15%
+- Achieved 95%+ first-pass yield and reduced rework costs
+- Negotiated supplier contracts, lowering material costs by 10-15% and improving lead times by 25%`,
+
+    projectHSBC: `Conversational AI for Credit Card Closure - HSBC (Banking)
+Protiviti India | Nov 2025 - Present
+
+Context: HSBC's conversational banking platform spans India, Hong Kong, and Singapore. Lakhan owns the Credit Card Closure chatbot (Singapore) end-to-end, plus broader conversational AI platform ownership across all three markets.
+
+Role & Decisions: Defined product vision and roadmap for Credit Card Account Closure flow. Coordinated 12-20 stakeholders. Prioritized flows to automate based on volume, compliance risk, and containment upside. Used journey analytics to identify live-agent transfer drop-offs and scoped new automation use cases.
+
+Outcomes:
+- Credit Card Closure (Singapore): full closure within chatbot, saving ~$120K annually in agent handling cost
+- Platform-wide containment: 68% -> 82%, NPS +11 points
+- Self-service adoption +27%, live-agent transfers -24%
+- $735K+ projected 2027 operational savings across three markets`,
+
+    projectHRMS: `Healthcare Workforce Platform + AI Employee Self-Service Chatbot
+CloudsR Technology | Jan 2020 - Nov 2025
+
+Context: Hospital clients needed complex workforce operations (vendor staffing, credentialing, compliance-heavy leave/attendance, 24/7 shift scheduling) at 52,300+ user scale, while HR teams handled repetitive manual queries.
+
+Role & Decisions: Owned roadmap across employee lifecycle, self-service, and operations modules. Prioritized compliance-critical workflows (BGC clearance, healthcare labor-law leave, credentialing). Added AI chatbot for high-volume queries (leave, payslips, onboarding FAQs) with human escalation for ambiguous cases.
+
+Outcomes:
+- Chatbot automated 45% of employee queries, cut response time 50%
+- Platform sustained 95%+ sprint success
+- 20% lift in customer satisfaction across concurrent product lines`,
+
+    projectShopping: `AI-Powered Personal Shopping Assistant - Luxury E-commerce
+CloudsR Technology | Jan 2020 - Nov 2025
+
+Context: Luxury e-commerce client wanted in-store-style personalized guidance online for product discovery, gifting, and styling.
+
+Role & Decisions: Owned product end-to-end using ML/NLP and Dialogflow, integrated with catalogue, CRM, and browsing data. Prioritized personalization quality over breadth - scoped initially to gifting and styling use cases.
+
+Outcomes:
+- Increased engagement and premium basket conversion ~15% across 1M+ customers
+- Strengthened brand's high-touch digital positioning`,
+
+    achievements: `Key Achievements Summary:
+
+Conversational AI Impact:
+[OK] Containment 68% -> 82% | NPS +11 points | Self-service adoption +27% | Live-agent transfers -24% | $735K+ projected savings (2027)
+
+Platform & Delivery:
+[OK] 52,300+ users on enterprise SaaS | 95%+ sprint success
+
+AI Solutions:
+[OK] HR chatbot: 45% query automation, 50% faster response
+[OK] Shopping Assistant: 1M+ customers, 15% engagement increase`,
+
+    valueProposition: `What Lakhan Brings to an Organization:
+
+- Enterprise Conversational AI Ownership - containment 68% -> 82%, self-service adoption +27%
+- Customer Experience Impact - NPS +11 points through conversational UX optimization
+- Business Value & Automation - $735K+ projected savings (2027), reduced transfers and operational load
+- Cross-Functional Leadership - 12-20 stakeholders across engineering, QA, SRE, Security/Compliance/Accessibility
+- Data-Driven Delivery - GA4/Mixpanel, experimentation, 95%+ sprint success with clear user stories and acceptance criteria`,
+
+    education: `Bachelor of Engineering (B.E.) - Electronics & Communication
+Dr. A.P.J. Abdul Kalam Technical University | 2014`,
+
+    certifications: `Certifications include:
+- Certified AI-Driven Professional
+- AI for Product Management (Pendo.io, Aug 2025)
+- Fintech Product Management Bootcamp 2025 (Udemy)
+- Generative AI Overview for Project Managers (PMI, Oct 2025)
+- Advanced Business Analysis (Udemy, 35 IIBA PDUs)
+- Electronic Arts & J.P. Morgan Job Simulations (Forage)
+- Super Certified, Product Discovery, Product Management Basics, Radical Product Thinking (Pendo.io)
+- AI Agents for Product Leaders, Generative AI for PMs, Technical PM, Prompt Engineering, Microsoft Copilot (LinkedIn Learning)
+- Become a 10x Product Manager with ChatGPT (Udemy)`,
+
+    cricket: `Corporate Leather Ball Cricket - Noida
+Active player | Right-hand Batsman, Right-arm Medium Bowler
+
+Cricket Stats:
+- 685 matches played
+- 17,143 runs scored
+- 286 wickets taken
+- Active in Noida corporate cricket leagues
+
+Skills from cricket: Team Leadership, Performance Under Pressure, Strategic Thinking, Commitment & Discipline
+
+CricHeroes Profile: cricheroes.com/player-profile/21215404/lakhan-rajputlucky/stats`,
+
+    interests: `Interests & Hobbies:
+- Corporate Leather Ball Cricket - passionate player in Noida corporate leagues (685 matches, 17,143 runs, 286 wickets)
+- Travelling - exploring new places, cultures, and experiences
+- Car Driving - enjoys road trips and scenic routes`,
+
+    contact: `Contact Lakhan Singh:
+ðŸ-§ Email: lakhan.rajputaipm@gmail.com
+ðŸ-± Phone: +91 9690902424
+ðŸ- Location: Noida, India
+ðŸ-- LinkedIn: linkedin.com/in/lakkhan-siingh-la0119
+ðŸ-„ Portfolio: beautiful-blossom-08b.notion.site/Lakhan-Singh-AI-Product-Manager-Portfolio
+
+Open to conversations about Conversational AI (Banking), Healthcare HRMS & HR automation, and E-commerce AI - containment, NPS, adoption, and operational savings.`
 };
 
-// Function to get chatbot response with improved pattern matching
+const intentMap = [
+    { patterns: [/hsbc|credit card closure|credit card account|conversational banking|containment|live.agent transfer|self.service adoption|\$735|\$120k|nps|singapore.*bot|hong kong.*bot|protiviti/i], response: () => chatbotKnowledge.projectHSBC + '\n\n' + chatbotKnowledge.experienceProtiviti },
+    { patterns: [/protiviti|deputy manager|digital product manager.*hsbc|current (role|job|company|work)/i], response: () => chatbotKnowledge.experienceProtiviti },
+    { patterns: [/cloudsr|clouds r|hrms|healthcare.*platform|employee self.service|hr chatbot|52,?300|hospital.*hr/i], response: () => chatbotKnowledge.projectHRMS + '\n\n' + chatbotKnowledge.experienceCloudsR },
+    { patterns: [/shopping assistant|personal shopping|luxury e.?commerce|e.?commerce ai|1m\+|dialogflow.*ecommerce|recommendation.*shopping/i], response: () => chatbotKnowledge.projectShopping },
+    { patterns: [/three x|electronics|starter relay|cdi unit|ignition coil|project head.*electronics/i], response: () => chatbotKnowledge.experienceThreeX },
+    { patterns: [/skill|expertise|proficient|tool|technology|dialogflow|jira|confluence|ga4|mixpanel|nlp|llm|aws/i], response: () => chatbotKnowledge.skills },
+    { patterns: [/certif|pmi|pendo|udemy|forage|linkedin learning|iiba|bootcamp/i], response: () => chatbotKnowledge.certifications },
+    { patterns: [/education|degree|university|b\.e\.|engineering|kalam/i], response: () => chatbotKnowledge.education },
+    { patterns: [/cricket|cricheroes|wicket|batsman|bowler|685|17143|286/i], response: () => chatbotKnowledge.cricket },
+    { patterns: [/hobby|hobbies|interest|travel|driving|extracurricular/i], response: () => chatbotKnowledge.interests },
+    { patterns: [/achievement|accomplish|metric|kpi|impact|result|highlight|what has he (done|achieved)/i], response: () => chatbotKnowledge.achievements },
+    { patterns: [/value proposition|what (does|do) he bring|unique value|why hire|strengths at scale|what i bring/i], response: () => chatbotKnowledge.valueProposition },
+    { patterns: [/contact|email|phone|reach|connect|linkedin|location|noida|9690902424|lakhan\.rajputaipm/i], response: () => chatbotKnowledge.contact },
+    { patterns: [/project|portfolio|case stud|featured|work sample/i], response: () => `Featured Projects:\n\n1. ${chatbotKnowledge.projectHSBC}\n\n2. ${chatbotKnowledge.projectHRMS}\n\n3. ${chatbotKnowledge.projectShopping}` },
+    { patterns: [/experience|career|work history|employment|resume|cv|background|job history/i], response: () => `${chatbotKnowledge.experienceProtiviti}\n\n${chatbotKnowledge.experienceCloudsR}\n\n${chatbotKnowledge.experienceThreeX}` },
+    { patterns: [/about|who is|introduce|summary|overview|tell me about|professional summary|lakhan singh/i], response: () => chatbotKnowledge.profile + '\n\n' + chatbotKnowledge.summary },
+    { patterns: [/ai|artificial intelligence|machine learning|chatbot|conversational ai|generative ai/i], response: () => chatbotKnowledge.skills + '\n\n' + chatbotKnowledge.projectHSBC + '\n\n' + chatbotKnowledge.projectHRMS },
+    { patterns: [/stakeholder|cross.functional|agile|scrum|sprint|backlog|roadmap/i], response: () => chatbotKnowledge.skills + '\n\n' + chatbotKnowledge.valueProposition },
+    { patterns: [/salary|compensation|pay/i], response: () => "I don't have salary information in Lakhan's portfolio. For compensation discussions, please reach out directly at lakhan.rajputaipm@gmail.com or +91 9690902424." },
+    { patterns: [/years of experience|how long|how many years|6\+|six years/i], response: () => "Lakhan has 6+ years of product management experience owning B2B enterprise SaaS platforms end-to-end, from CloudsR Technology (Jan 2020 - Nov 2025) to his current role at Protiviti India (Nov 2025 - Present) driving HSBC Conversational AI." }
+];
+
+const greetingResponses = [
+    "Hello! I'm Lakhan's portfolio assistant. Ask me anything about his AI Product Management experience - HSBC Conversational AI, Healthcare HRMS, E-commerce AI, skills, projects, achievements, certifications, cricket stats, or how to connect with him.",
+    "Hi there! I can help you learn about Lakhan Singh - Sr. Product Manager with 6+ years in enterprise Conversational AI, Healthcare HRMS, and E-commerce AI. What would you like to know?",
+    "Hey! Welcome to Lakhan's portfolio. I can answer questions about his work at Protiviti/HSBC, CloudsR Technology, his measurable outcomes (containment, NPS, adoption), projects, skills, and more."
+];
+
+const defaultResponses = [
+    "I can help with Lakhan's experience (Protiviti/HSBC, CloudsR, Three X Electronics), featured projects, skills, achievements, certifications, education, cricket, interests, or contact details. What would you like to explore?",
+    "Try asking about his HSBC Conversational AI work, Healthcare HRMS chatbot, Personal Shopping Assistant, key metrics (containment 68->82%, NPS +11), skills, certifications, or how to connect with him.",
+    "I'm here to answer questions about Lakhan Singh's AI Product Manager portfolio. You can ask about his current role, past experience, projects, achievements, skills, cricket stats, or contact information."
+];
+
 function getChatbotResponse(userMessage) {
     const message = userMessage.toLowerCase().trim();
-    
-    // Check for empty or very short messages
-    if (message.length < 2) {
-        return "I'm here to help! Could you please ask me a question about Lakhan's portfolio?";
-    }
-    
-    // Greetings - more comprehensive matching
-    if (message.match(/^(hi|hello|hey|greetings|good morning|good afternoon|good evening|what's up|sup)/) || 
-        message.match(/^(hi there|hello there|hey there)/)) {
-        return chatbotResponses.greetings[Math.floor(Math.random() * chatbotResponses.greetings.length)];
-    }
-    
-    // About - comprehensive matching (check this first before other patterns)
-    if (message.match(/(^| )about( |$|lakhan|him)/) || 
-        message.match(/(who is|tell me about|introduce|background|overview|summary|describe)/) ||
-        message.match(/(what does|what is lakhan|who is lakhan|can you tell me about)/) ||
-        message.match(/(^what|^who|^tell me)/) && message.length < 30) {
-        return chatbotResponses.about[Math.floor(Math.random() * chatbotResponses.about.length)];
-    }
-    
-    // Skills - detailed matching
-    if (message.match(/(skill|expertise|proficient|what can|capabilities|abilities|competencies|strengths)/) ||
-        message.match(/(what skills|technical skills|product skills|what is he good at)/) ||
-        message.match(/(knows|specializes|expert in)/)) {
-        return chatbotResponses.skills[Math.floor(Math.random() * chatbotResponses.skills.length)];
-    }
-    
-    // Experience - comprehensive matching
-    if (message.match(/(experience|work|job|career|employment|company|role|position|current role|previous role)/) ||
-        message.match(/(where does|where did|work history|professional experience|work experience)/) ||
-        message.match(/(flytech|rtl technologies|three x|current company|previous company)/) ||
-        message.match(/(what does he do|what is his job|what is his role)/)) {
-        return chatbotResponses.experience[Math.floor(Math.random() * chatbotResponses.experience.length)];
-    }
-    
-    // Projects - detailed matching
-    if (message.match(/(project|portfolio|built|developed|created|hrms|chatbot|shopping assistant|hospital|ecommerce|e-commerce)/) ||
-        message.match(/(what projects|which projects|project details|project work|major projects|key projects)/) ||
-        message.match(/(ai chatbot|employee chatbot|hrms platform|shopping assistant|personal shopping|hr chatbot)/)) {
-        // Check for specific project mentions (order matters - check specific first)
-        if (message.match(/(hrms|hospital|healthcare|workforce management)/)) {
-            return chatbotResponses.projects[0]; // HRMS project
-        } else if (message.match(/(chatbot|employee|hr chatbot|self-service|ai assistant)/)) {
-            return chatbotResponses.projects[1]; // Chatbot project
-        } else if (message.match(/(shopping|ecommerce|e-commerce|luxury|personal shopping|conversational commerce)/)) {
-            return chatbotResponses.projects[2]; // Shopping assistant project
-        }
-        // Return comprehensive projects overview
-        return "Lakhan has led three major high-impact projects:\n\n1. Hospital-Focused HRMS Platform: A comprehensive HRMS solution for healthcare institutions with vendor management, payroll, attendance tracking, leave management, and smart staff scheduling. It streamlined operations for 5+ healthcare facilities, reduced scheduling conflicts by 60%+, and improved compliance tracking efficiency by 50%.\n\n2. AI-Powered Employee Self-Service Chatbot: An intelligent HR assistant that automates routine HR queries, enabling 24/7 employee self-service. It achieved 40%+ reduction in HR workload, 85%+ query resolution without human intervention, and reduced response time from hours to seconds.\n\n3. AI-Powered Personal Shopping Assistant: A luxury e-commerce conversational commerce solution that guides customers with product discovery and styling recommendations. It boosted customer engagement and premium basket conversions by ~15% and enhanced luxury shopping experience.\n\nWould you like detailed information about any specific project?";
-    }
-    
-    // Education - comprehensive matching
-    if (message.match(/(education|degree|university|college|qualification|studied|graduate|bachelor|b\.e\.|engineering)/) ||
-        message.match(/(where did he study|what degree|educational background|academic)/)) {
-        return chatbotResponses.education[Math.floor(Math.random() * chatbotResponses.education.length)];
-    }
-    
-    // Certifications - detailed matching
-    if (message.match(/(certification|certificate|certified|pmi|pendo|udemy|linkedin|forage|iiba)/) ||
-        message.match(/(what certifications|which certifications|certifications list|professional certifications)/) ||
-        message.match(/(generative ai|ai for product|product management basics|super certified|prompt engineering)/) ||
-        message.match(/(electronic arts|j\.p\. morgan|fintech bootcamp|quantitative research)/)) {
-        return chatbotResponses.certifications[Math.floor(Math.random() * chatbotResponses.certifications.length)];
-    }
-    
-    // Achievements - comprehensive matching
-    if (message.match(/(achievement|accomplishment|result|success|milestone|impact|results|metrics)/) ||
-        message.match(/(what has he achieved|key achievements|major accomplishments|career highlights)/) ||
-        message.match(/(45%|20%|60%|95%|automated|improved|increased|reduced)/)) {
-        return chatbotResponses.achievements[Math.floor(Math.random() * chatbotResponses.achievements.length)];
-    }
-    
-    // Contact - detailed matching
-    if (message.match(/(contact|email|phone|reach|connect|linkedin|get in touch|how to contact|reach out)/) ||
-        message.match(/(email address|phone number|contact details|contact info|where is he|location)/) ||
-        message.match(/(noida|india|lakhan\.rajputaipm|9690902424)/)) {
-        return chatbotResponses.contact[Math.floor(Math.random() * chatbotResponses.contact.length)];
-    }
-    
-    // Interests/Hobbies
-    if (message.match(/(interest|hobby|hobbies|what does he like|passion|enjoy|travel|cricket|driving)/) ||
-        message.match(/(corporate cricket|leather ball|travelling|car driving)/)) {
-        return "Lakhan has several personal interests that reflect his well-rounded personality. He loves playing corporate leather ball cricket, which combines his passion for sports with professional networking and team building. He also enjoys travelling, exploring new places, cultures, and experiences, which broadens his perspective and inspires creativity. Additionally, he has a passion for car driving, enjoying the freedom and adventure that comes with road trips and exploring scenic routes. These interests help him maintain a healthy work-life balance and bring fresh perspectives to his professional work.";
-    }
-    
-    // Specific questions about metrics/results
-    if (message.match(/(how much|how many|percentage|metric|kpi|result|impact|outcome)/)) {
-        return "Lakhan has achieved impressive metrics throughout his career. At FlyTech Solution, he automated 45% of query load through AI chatbots and improved response time by 50%. He increased customer satisfaction scores by 20% through optimized conversational experiences. He achieved >95% on-time sprint completion rate using Agile and Scrum frameworks. The HRMS platform he developed reduced scheduling conflicts by 60%+ and improved compliance tracking efficiency by 50%. The AI chatbot achieved 85%+ query resolution without human intervention and reduced HR workload by 40%+. At RTL Technologies, he boosted recruiter productivity by 20% and compliance tracking by 35%, while driving 40% client growth. At Three X Electronics, he expanded product portfolio by 20%, achieved 95%+ first pass yield, reduced material costs by 10–15%, and boosted new product sales by 30% YoY.";
-    }
-    
-    // Questions about current role
-    if (message.match(/(current|present|now|currently|what is he doing now)/)) {
-        return chatbotResponses.experience[0];
-    }
-    
-    // Questions about previous roles
-    if (message.match(/(previous|before|earlier|past|prior|used to work)/)) {
-        return chatbotResponses.experience[1];
-    }
-    
-    // Questions about AI/technology
-    if (message.match(/(ai|artificial intelligence|machine learning|nlp|conversational ai|generative ai)/) ||
-        message.match(/(chatbot|dialogflow|rasa|prompt engineering|copilot|chatgpt)/)) {
-        return "Lakhan has extensive expertise in AI and Conversational AI technologies. He specializes in building AI-powered products including chatbots, virtual assistants, and recommendation engines. He's skilled in NLP (Natural Language Processing), Dialogflow, Rasa, and has completed multiple certifications in Generative AI, Prompt Engineering, and AI for Product Management. He has hands-on experience delivering AI solutions that automated 45% of query load, improved response times by 50%, and achieved 85%+ query resolution without human intervention. His AI expertise spans across product strategy, technical implementation, and business impact measurement.";
-    }
-    
-    // Default response with helpful suggestions
-    return chatbotResponses.default[Math.floor(Math.random() * chatbotResponses.default.length)];
-}
 
+    if (message.length < 2) {
+        return "Please ask me a question about Lakhan's portfolio - experience, projects, skills, achievements, certifications, or contact info.";
+    }
+
+    if (message.match(/^(hi|hello|hey|greetings|good morning|good afternoon|good evening|what's up|sup|hi there|hello there|hey there)/)) {
+        return greetingResponses[Math.floor(Math.random() * greetingResponses.length)];
+    }
+
+    if (message.match(/^(thanks|thank you|thx|ty|appreciate)/)) {
+        return "You're welcome! Feel free to ask anything else about Lakhan's experience, projects, or how to connect with him.";
+    }
+
+    if (message.match(/^(bye|goodbye|see you|exit|quit)/)) {
+        return "Goodbye! You can reach Lakhan at lakhan.rajputaipm@gmail.com or on LinkedIn (linkedin.com/in/lakkhan-siingh-la0119) anytime.";
+    }
+
+    let bestMatch = null;
+    let bestScore = 0;
+
+    for (const intent of intentMap) {
+        let score = 0;
+        for (const pattern of intent.patterns) {
+            if (pattern.test(message)) score++;
+        }
+        if (score > bestScore) {
+            bestScore = score;
+            bestMatch = intent;
+        }
+    }
+
+    if (bestMatch && bestScore > 0) {
+        return bestMatch.response();
+    }
+
+    const keywords = message.split(/\s+/).filter(w => w.length > 3);
+    const allKnowledge = Object.values(chatbotKnowledge).join('\n').toLowerCase();
+    const matchedKeywords = keywords.filter(kw => allKnowledge.includes(kw));
+
+    if (matchedKeywords.length >= 2) {
+        if (matchedKeywords.some(k => ['hsbc', 'containment', 'protiviti', 'banking'].includes(k))) {
+            return chatbotKnowledge.projectHSBC;
+        }
+        if (matchedKeywords.some(k => ['hrms', 'healthcare', 'cloudsr', 'employee'].includes(k))) {
+            return chatbotKnowledge.projectHRMS;
+        }
+        if (matchedKeywords.some(k => ['shopping', 'ecommerce', 'luxury'].includes(k))) {
+            return chatbotKnowledge.projectShopping;
+        }
+        return chatbotKnowledge.summary + '\n\n' + chatbotKnowledge.achievements;
+    }
+
+    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+}
 // Function to add message to chat
 function addMessage(message, isUser = false) {
     const messageDiv = document.createElement('div');
