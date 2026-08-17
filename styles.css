@@ -603,7 +603,8 @@ p, span, li, .hero-description,
 }
 
 .experience-progression,
-.experience-highlight {
+.experience-highlight,
+.experience-scope {
     font-family: 'Roboto', sans-serif;
     color: var(--text-light);
     font-style: italic;
@@ -614,6 +615,11 @@ p, span, li, .hero-description,
     color: var(--primary-color);
     font-weight: 600;
     font-style: normal;
+}
+
+.experience-scope {
+    font-style: normal;
+    line-height: 1.7;
 }
 
 .experience-content ul {
