@@ -27,11 +27,13 @@ function switchTab(tabId) {
     tabLinks.forEach(tab => tab.classList.remove('active'));
     tabContents.forEach(content => content.classList.remove('active'));
     
-    // Add active class to clicked tab
-    const activeTab = document.querySelector(`[data-tab="${tabId}"]`);
-    if (activeTab) {
-        activeTab.classList.add('active');
-    }
+    tabLinks.forEach((link) => {
+        if (link.getAttribute('data-tab') === tabId) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
     
     // Show corresponding content
     const targetContent = document.getElementById(tabId);
@@ -88,11 +90,11 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe all sections for animation
 document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('.skill-item, .project-card, .cert-card, .interest-card, .education-item, .experience-item, .achievement-card, .value-item');
+    const animatedElements = document.querySelectorAll('.impact-card, .project-card-3d, .timeline-card, .toolkit-card, .edu-card, .beyond-card, .cert-card');
     
     animatedElements.forEach((el, index) => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
+        el.style.transform = 'translateY(24px)';
         el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
         observer.observe(el);
     });
@@ -152,7 +154,7 @@ if (profileImg) {
 // This is already handled by the tabLinks forEach loop above
 
 // Add scroll reveal animation
-const revealElements = document.querySelectorAll('.section-title, .about-text, .contact-info');
+const revealElements = document.querySelectorAll('.section-title, .hero-copy, .contact-lead');
 revealElements.forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
@@ -183,16 +185,6 @@ function typeWriter(element, text, speed = 100) {
     }
     type();
 }
-
-// Parallax effect for hero section (optional)
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero');
-    if (hero && scrolled < window.innerHeight) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-        hero.style.opacity = 1 - (scrolled / window.innerHeight);
-    }
-});
 
 // Add active state to navigation on page load
 window.addEventListener('load', () => {
@@ -247,67 +239,53 @@ const chatbotInput = document.getElementById('chatbot-input');
 const chatbotSend = document.getElementById('chatbot-send');
 const chatbotMessages = document.getElementById('chatbot-messages');
 
-// Chatbot knowledge base - aligned with Lakhan Singh AI Product Manager portfolio
+// Chatbot knowledge base - synced with portfolio content
 const chatbotKnowledge = {
-    profile: `Lakhan Singh is a Sr. Product Manager specializing in enterprise B2B SaaS platforms across Conversational AI (Digital Banking), Healthcare HRMS, and E-commerce AI, with 5+ years owning products end-to-end and delivering measurable business impact.
+    profile: `Lakhan Singh - Digital Product Manager specializing in Conversational AI, Agentic AI, and Enterprise SaaS.
 
-Location: Noida, India | Phone: +91 9711966555 | Email: lakhan.rajputaipm@gmail.com
-Website: lakhanrajputaipm.in
+He builds secure, customer-centered digital products from discovery and strategy through delivery and optimization across digital banking, healthcare HRMS, e-commerce, and payments. 12+ years overall professional experience.
+
+Location: Noida, India | Phone: +91 9711966555
+Email: lakhan.rajputaipm@gmail.com | Website: lakhanrajputaipm.in
 LinkedIn: linkedin.com/in/lakkhan-siingh-la0119`,
 
-    summary: `Sr. Product Manager with 5 years owning B2B enterprise SaaS platforms spanning AI-powered Conversational Banking, HRMS, and e-commerce. Currently owns HSBC Conversational AI platform across India, Hong Kong, and Singapore, serving 22M customers via mobile app, coordinating 12-20 cross-functional stakeholders.
+    summary: `Currently owns HSBC Conversational AI product lifecycle across India, Hong Kong, and Singapore (22M customers). Coordinates 12-20 stakeholders across engineering, architecture, delivery, and compliance.
 
-Key highlights:
-- Containment 68% -> 82% | NPS +11 | Self-service +27% | Live-agent transfers -24%
-- $735K+ projected 2027 operational savings across three markets
-- HRMS chatbot: 45% query automation, 50% faster response
-- Personal Shopping Assistant: 1M+ users, 15% engagement increase
-- 95%+ sprint success; customer satisfaction +20%`,
+Selected impact:
+- HSBC containment 68% -> 82%; self-service +27%; NPS +11; live-agent transfers -24%
+- $735K+ projected 2027 operational savings (three markets)
+- Agentic AI HRMS: 45% employee support queries automated; 50% faster response
+- AI shopping assistant: 1M+ users; engagement +15%
+- Enterprise HRMS: 52,300+ users; 95%+ sprint success; customer satisfaction +20%`,
 
-    skills: `Core Skills:
+    toolkit: `Product leadership toolkit:
 
-Product Ownership: Product Strategy, Product Discovery, Roadmapping, Backlog Prioritization, Sprint Planning, User Stories, PRD/Product Specs, Business Case Development, Feature Prioritization, Release Planning
+Strategy & discovery: product vision, customer research, journey mapping, roadmaps, prioritization, business cases.
 
-AI & ML: Conversational AI, NLP, LLM-powered solutions, Prompt Engineering, RAG, OpenAI, Intelligent Automation, Recommendation Engines, Dialogflow, Sierra
+AI products: Conversational AI, Agentic AI, LLMs, RAG, multi-agent systems, orchestration, tool calling, guardrails, human-in-the-loop workflows.
 
-Technical & Cloud: AWS Cloud, APIs & Integrations, SaaS Architecture, Enterprise Platforms, Vector Databases
+Execution: PRDs, user stories, acceptance criteria, APIs, integrations, SIT/UAT, release planning, Agile/Scrum.
 
-Customer & Market: Customer Journey Mapping, VoC, Customer Interviews, User Research, Competitive Analysis, Go-to-Market
+Customer outcomes: journey and conversation analytics, NPS, KPI tracking, experimentation, continuous improvement.
 
-Analytics: GA4, Mixpanel, A/B Testing, KPI Tracking, Data-driven decision making
+Tools: Jira, Confluence, Mixpanel, GA4, Dialogflow, AWS, SQL, Figma, ChatGPT, Claude, Perplexity`,
 
-Leadership: Cross-functional stakeholder management (12-20 stakeholders), Executive communication, Risk & Compliance, Agile/Scrum
+    skills: `See product leadership toolkit for full detail. Core domains: Digital Banking (HSBC), Healthcare HRMS SaaS, Agentic AI HR automation, E-commerce conversational AI, UPI/FinTech payments product definition.`,
 
-Tools: Claude, ChatGPT, Perplexity, SQL, Jira, Confluence, Figma`,
+    experienceProtiviti: `Digital Product Manager - Conversational AI (HSBC)
+Protiviti India | HSBC client engagement | Noida | Nov 2025 - Present
 
-    experienceProtiviti: `Digital Product Manager - Conversational AI (HSBC Client Engagement)
-Protiviti India | Deputy Manager | Noida | Nov 2025 - Present
+Own product lifecycle for HSBC Conversational AI across three markets. Lead card-closure self-service journey. Align engineering, AI/ML, architecture, UX, data, QA, business, operations, security, privacy, risk, and compliance.
 
-Scope: Own end-to-end product lifecycle for HSBC Conversational AI across India, Hong Kong, Singapore, serving 22M customers via mobile app.
-
-- Lead Credit Card Account Closure chatbot with business, engineering, architecture, compliance
-- Containment 68% -> 82%, NPS +11, self-service +27%, live-agent transfers -24%
-- Coordinate 12-20 stakeholders (3-6 engineers, Tech Lead, Solution Architect, QA, BA, conversation design, Platform/SRE, Security/Compliance/Accessibility)
-- $735K projected 2027 savings across three markets
-- Define vision, roadmap, Dialogflow/Sierra flows, user stories aligned to governance and compliance
-- Competitive benchmarking against leading global banks
-- Backlog management, sprint planning, acceptance criteria across three markets
-- Monitor product performance, model effectiveness, conversational analytics`,
+Own vision, roadmap, backlog, journey analytics, optimization for mobile Conversational AI serving 22M customers. Coordinate 12-20 stakeholders.`,
 
     experienceCloudsR: `Senior Product Manager - Enterprise SaaS & AI Solutions
 CloudsR Technology | Noida | Jan 2022 - Nov 2025
-Progressed: APM -> PM -> Senior PM
+Progressed: Associate PM -> PM -> Senior PM
 
-- Owned HRMS SaaS platform lifecycle for 52,300+ users
-- Led discovery, requirements, prioritization, release management
-- Created PRDs, specs, user stories, acceptance criteria, functional documentation
-- AI Employee Self-Service chatbot: 45% automation, 50% faster response
-- AI Personal Shopping Assistant: NLP/ML, Dialogflow, 1M+ users, 15% engagement increase
-- Collaborated with Data Scientists, AI Engineers, UX, QA, Engineering
-- REST API integration requirements; AWS-hosted scalable solutions
-- 95%+ sprint success, customer satisfaction +20%
-- Mentored APMs and BAs on Agile delivery and discovery
-- Used Mixpanel, GA4, ChatGPT/Claude/Perplexity for research and optimization`,
+Led HRMS SaaS, Agentic AI HRMS, AI shopping assistant, and UPI merchant payment gateway from discovery through Agile delivery, release, and optimization.
+
+Delivered: 52,300+ user HRMS platform, Agentic AI HR (45% automation), 1M+ user shopping assistant (+15% engagement), UPI gateway MVP and phased roadmap.`,
 
     experienceRTL: `Business Head
 RTL Technologies | Noida | Jan 2017 - Jan 2022
@@ -319,32 +297,34 @@ RTL Technologies | Noida | Jan 2017 - Jan 2022
 - Recruiter productivity +20%, compliance tracking +35%
 - Drove 40% client growth and strengthened US partnerships`,
 
-    experienceThreeX: `Project Head - Electronics Product Development
+    experienceThreeX: `Project Head - Automotive Product Development
 Three X Electronics | New Delhi | Jul 2014 - Dec 2016
 
-- Headed starter relays, CDI units, ignition coils, switches, assemblies; portfolio +20%
-- 95%+ first-pass yield, reduced rework costs
-- New product sales +30% YoY`,
+Led automotive electronics product development. Expanded portfolio 20%. Achieved 95%+ first-pass yield through quality protocols.`,
 
-    projectContainment: `HSBC Conversational AI - Chatbot Containment Optimization (FinTech/Digital Banking)
-Owned product strategy and optimization across India, Hong Kong & Singapore, serving 22M customers.
-Impact: Containment 68% -> 82%, self-service +27%, NPS +11, live-agent transfers -24%, $735K+ projected savings`,
+    projectContainment: `01 - HSBC Conversational AI (Digital Banking)
+Own product vision, roadmap, backlog, journey analytics, and optimization for mobile Conversational AI serving 22M customers in India, Hong Kong, and Singapore. Lead with engineering, architecture, UX, data, business, operations, risk; 12-20 stakeholders.
+Impact: Containment 68% -> 82%, self-service +27%, NPS +11, transfers -24%, $735K+ projected 2027 savings`,
 
-    projectCardClosure: `Credit Card Closure - Conversational AI Self-Service Fulfilment (HSBC)
-Owned end-to-end digital card closure: AI intent, eligibility decisioning, retention offers, STP fulfilment, single/multi-card closure, API orchestration, T&Cs, notifications, exception handling.
-Impact: Transformed contact-centre process into scalable self-service with automated eligibility and STP closure`,
+    projectCardClosure: `02 - Credit Card Closure (Conversational Self-Service)
+End-to-end digital closure: AI intent, eligibility rules, STP fulfilment, API orchestration, notifications, exception handling. SIT, UAT, release with UX, engineering, business, operations.
+Outcome: Eligible closures moved from contact-centre-led process to scalable self-service.`,
 
-    projectHRMS: `Enterprise HRMS SaaS B2B Platform (Healthcare Technology) - CloudsR
-Owned strategy, discovery, roadmap, delivery for B2B HRMS serving 52,300+ users.
-Impact: 95%+ sprint success, customer satisfaction +20%, scalable AWS enterprise solutions`,
+    projectAgenticHRMS: `03 - Agentic AI HRMS (Healthcare SaaS)
+Owned vision, discovery, PRD, architecture, roadmap, requirements, delivery for Agentic AI HR platform. Multi-agent orchestration, tool/API calling, task memory, risk-tiered autonomy, human-in-the-loop controls.
+Impact: 45% of employee support queries automated; response time reduced 50%.`,
 
-    projectHRChatbot: `AI-Powered Employee Self-Service (Healthcare/Enterprise AI) - CloudsR
-Led discovery, requirements, roadmap, delivery of AI chatbot for HR/support queries.
-Impact: 45% query automation, 50% faster response time`,
+    projectHRMS: `04 - Enterprise HRMS SaaS (Healthcare Technology)
+Owned B2B HRMS from discovery through Agile delivery, release, optimization for 52,300+ users. Requirements, integrations, prioritization, cross-functional execution.
+Impact: 95%+ sprint success; customer satisfaction +20%.`,
 
-    projectShopping: `AI Personal Shopping Assistant (E-commerce/AI) - CloudsR
-Led strategy and delivery of NLP/ML conversational shopping assistant using Dialogflow and recommendation engines.
-Impact: 1M+ users, 15% engagement increase`,
+    projectShopping: `05 - AI Personal Shopping Assistant (E-commerce)
+Strategy, discovery, launch, optimization for NLP/ML conversational assistant (Dialogflow, recommendation engines).
+Impact: 1M+ users; engagement +15%.`,
+
+    projectUPI: `06 - UPI Merchant Payment Gateway (FinTech)
+Product vision, MVP scope, phased roadmap for SMB UPI: merchant onboarding, tiered KYC, static/dynamic QR, payment links, transaction tracking, merchant dashboards, T+1 settlement visibility, reconciliation, exception handling, security, audit logging, RBAC, scalability, RBI/NPCI alignment considerations.
+Note: Pilot-to-scale plan targets 25,000+ merchants in six months - this is a target, not claimed adoption.`,
 
     achievements: `Key Achievements:
 - Conversational AI: Containment 68% -> 82%, NPS +11, self-service +27%, transfers -24%, $735K+ savings
@@ -368,12 +348,12 @@ Dr. A.P.J. Abdul Kalam Technical University | 2014`,
 
 Also holds certifications from PMI, Pendo.io, LinkedIn Learning, Udemy, and Forage in Generative AI, Product Management, Business Analysis, and Prompt Engineering.`,
 
-    cricket: `Corporate Leather Ball Cricket - Noida
-Right-hand Batsman, Right-arm Medium Bowler
-685 matches | 17,143 runs | 286 wickets
+    cricket: `Beyond product - Corporate leather-ball cricket in Noida
+Right-hand batsman, right-arm medium bowler
+700+ matches | 17,000+ runs | 286 wickets
 CricHeroes: cricheroes.com/player-profile/21215404/lakhan-rajputlucky/stats`,
 
-    interests: `Interests: Corporate cricket (685 matches, 17,143 runs, 286 wickets), Travelling, Car Driving`,
+    interests: `Beyond product: Corporate leather-ball cricket in Noida (700+ matches, 17,000+ runs, 286 wickets).`,
 
     contact: `Contact Lakhan Singh:
 Email: lakhan.rajputaipm@gmail.com
@@ -382,46 +362,48 @@ Location: Noida, India
 Website: lakhanrajputaipm.in
 LinkedIn: linkedin.com/in/lakkhan-siingh-la0119
 
-Open to Conversational AI (Digital Banking), Healthcare HRMS, and E-commerce AI discussions.`
+Open to building customer-focused AI and enterprise products.`
 };
 
 const intentMap = [
-    { patterns: [/containment|68.*82|22m|22 million|chatbot optimization|singapore|hong kong/i], response: () => chatbotKnowledge.projectContainment + '\n\n' + chatbotKnowledge.experienceProtiviti },
-    { patterns: [/credit card closure|card closure|stp|eligibility decision|retention offer|self.service fulfil/i], response: () => chatbotKnowledge.projectCardClosure },
-    { patterns: [/hsbc|protiviti|conversational banking|digital banking|dialogflow|sierra|deputy manager|current (role|job|work)/i], response: () => chatbotKnowledge.experienceProtiviti + '\n\n' + chatbotKnowledge.projectContainment },
-    { patterns: [/hrms|52,?300|enterprise saas.*health|healthcare.*platform|b2b platform/i], response: () => chatbotKnowledge.projectHRMS + '\n\n' + chatbotKnowledge.experienceCloudsR },
-    { patterns: [/employee self.service|hr chatbot|hrms chatbot|45%|support quer/i], response: () => chatbotKnowledge.projectHRChatbot },
-    { patterns: [/shopping assistant|personal shopping|e.?commerce ai|1m\+|recommendation.*engine/i], response: () => chatbotKnowledge.projectShopping },
-    { patterns: [/rtl|recruitment|recruiter|ats|business head|50\+.*team/i], response: () => chatbotKnowledge.experienceRTL },
+    { patterns: [/containment|68.*82|22m|22 million|journey analytics|singapore|hong kong/i], response: () => chatbotKnowledge.projectContainment + '\n\n' + chatbotKnowledge.experienceProtiviti },
+    { patterns: [/credit card closure|card closure|stp|eligibility|self.service fulfil|closure journey/i], response: () => chatbotKnowledge.projectCardClosure },
+    { patterns: [/hsbc|protiviti|conversational|digital banking|current (role|job|work)/i], response: () => chatbotKnowledge.experienceProtiviti + '\n\n' + chatbotKnowledge.projectContainment },
+    { patterns: [/agentic|multi.agent|orchestration|tool calling|human.in.the.loop|agentic ai hrms/i], response: () => chatbotKnowledge.projectAgenticHRMS + '\n\n' + chatbotKnowledge.toolkit },
+    { patterns: [/upi|merchant|payment gateway|npci|rbi|qr payment|25000|25,000/i], response: () => chatbotKnowledge.projectUPI },
+    { patterns: [/hrms|52,?300|enterprise saas|healthcare.*platform|b2b hrms/i], response: () => chatbotKnowledge.projectHRMS + '\n\n' + chatbotKnowledge.experienceCloudsR },
+    { patterns: [/45%|employee support|support quer|hr chatbot/i], response: () => chatbotKnowledge.projectAgenticHRMS },
+    { patterns: [/shopping assistant|personal shopping|e.?commerce|1m\+|engagement.*15/i], response: () => chatbotKnowledge.projectShopping },
+    { patterns: [/rtl|recruitment|recruiter|ats|business head|50\+/i], response: () => chatbotKnowledge.experienceRTL },
     { patterns: [/cloudsr|clouds r|jan 2022/i], response: () => chatbotKnowledge.experienceCloudsR },
-    { patterns: [/three x|electronics|starter relay|cdi|ignition coil/i], response: () => chatbotKnowledge.experienceThreeX },
-    { patterns: [/skill|expertise|figma|rag|openai|vector database|prompt engineering|sierra/i], response: () => chatbotKnowledge.skills },
-    { patterns: [/certif|fintech bootcamp|ai.driven/i], response: () => chatbotKnowledge.certifications },
-    { patterns: [/education|degree|university|b\.e\.|kalam/i], response: () => chatbotKnowledge.education },
-    { patterns: [/cricket|cricheroes|wicket|685|17143|286/i], response: () => chatbotKnowledge.cricket },
-    { patterns: [/hobby|hobbies|interest|travel|driving/i], response: () => chatbotKnowledge.interests },
-    { patterns: [/achievement|metric|kpi|nps|735|\$735|impact|result/i], response: () => chatbotKnowledge.achievements },
-    { patterns: [/value proposition|what.*bring|why hire|unique value/i], response: () => chatbotKnowledge.valueProposition },
-    { patterns: [/contact|email|phone|9711966555|lakhanrajputaipm|reach|connect|linkedin|website/i], response: () => chatbotKnowledge.contact },
-    { patterns: [/project|featured|portfolio|case stud/i], response: () => `Featured Projects:\n\n1. ${chatbotKnowledge.projectContainment}\n\n2. ${chatbotKnowledge.projectCardClosure}\n\n3. ${chatbotKnowledge.projectHRMS}\n\n4. ${chatbotKnowledge.projectHRChatbot}\n\n5. ${chatbotKnowledge.projectShopping}` },
-    { patterns: [/experience|career|resume|cv|work history|employment|background/i], response: () => `${chatbotKnowledge.experienceProtiviti}\n\n${chatbotKnowledge.experienceCloudsR}\n\n${chatbotKnowledge.experienceRTL}\n\n${chatbotKnowledge.experienceThreeX}` },
-    { patterns: [/about|who is|introduce|summary|overview|tell me about|lakhan singh/i], response: () => chatbotKnowledge.profile + '\n\n' + chatbotKnowledge.summary },
-    { patterns: [/ai|machine learning|nlp|llm|chatbot|conversational ai|generative ai/i], response: () => chatbotKnowledge.skills + '\n\n' + chatbotKnowledge.projectContainment },
-    { patterns: [/stakeholder|agile|scrum|sprint|backlog|roadmap|prd/i], response: () => chatbotKnowledge.skills + '\n\n' + chatbotKnowledge.valueProposition },
-    { patterns: [/salary|compensation|pay/i], response: () => "Salary information is not available. Contact Lakhan at lakhan.rajputaipm@gmail.com or +91 9711966555." },
-    { patterns: [/years of experience|how long|how many years|5\+|five years/i], response: () => "Lakhan has 5+ years in product management: CloudsR Technology (Jan 2022 - Nov 2025), currently Protiviti India (Nov 2025 - Present) driving HSBC Conversational AI for 22M customers." }
+    { patterns: [/three x|automotive|electronics product/i], response: () => chatbotKnowledge.experienceThreeX },
+    { patterns: [/toolkit|skill|expertise|figma|rag|llm|prd|sit|uat/i], response: () => chatbotKnowledge.toolkit },
+    { patterns: [/certif|fintech bootcamp|ai.driven|ai for product/i], response: () => chatbotKnowledge.certifications },
+    { patterns: [/education|degree|b\.e\.|kalam|electronics.*communication/i], response: () => chatbotKnowledge.education },
+    { patterns: [/cricket|cricheroes|wicket|700|17000|286/i], response: () => chatbotKnowledge.cricket },
+    { patterns: [/beyond|hobby|extracurricular/i], response: () => chatbotKnowledge.cricket },
+    { patterns: [/achievement|metric|kpi|nps|735|\$735|impact|selected impact/i], response: () => chatbotKnowledge.achievements + '\n\n' + chatbotKnowledge.summary },
+    { patterns: [/value proposition|what.*bring|why hire/i], response: () => chatbotKnowledge.valueProposition },
+    { patterns: [/contact|email|phone|9711966555|lakhanrajputaipm|reach|connect|linkedin|website|get in touch/i], response: () => chatbotKnowledge.contact },
+    { patterns: [/project|featured|portfolio|product work|case stud/i], response: () => `Featured product work:\n\n${chatbotKnowledge.projectContainment}\n\n${chatbotKnowledge.projectCardClosure}\n\n${chatbotKnowledge.projectAgenticHRMS}\n\n${chatbotKnowledge.projectHRMS}\n\n${chatbotKnowledge.projectShopping}\n\n${chatbotKnowledge.projectUPI}` },
+    { patterns: [/experience|career|resume|cv|work history|employment|12\+|twelve years/i], response: () => `${chatbotKnowledge.profile}\n\n${chatbotKnowledge.experienceProtiviti}\n\n${chatbotKnowledge.experienceCloudsR}\n\n${chatbotKnowledge.experienceRTL}\n\n${chatbotKnowledge.experienceThreeX}` },
+    { patterns: [/about|who is|introduce|summary|overview|tell me about|lakhan singh|digital product manager/i], response: () => chatbotKnowledge.profile + '\n\n' + chatbotKnowledge.summary },
+    { patterns: [/ai|machine learning|nlp|chatbot|conversational ai|generative ai|payments|fintech/i], response: () => chatbotKnowledge.toolkit + '\n\n' + chatbotKnowledge.projectContainment },
+    { patterns: [/stakeholder|agile|scrum|sprint|backlog|roadmap/i], response: () => chatbotKnowledge.toolkit + '\n\n' + chatbotKnowledge.valueProposition },
+    { patterns: [/salary|compensation|pay/i], response: () => "Salary information is not in the portfolio. Email lakhan.rajputaipm@gmail.com or call +91 9711966555." },
+    { patterns: [/years of experience|how long|how many years/i], response: () => "Lakhan has 12+ years overall professional experience. Product leadership includes Protiviti/HSBC (Nov 2025-Present), CloudsR (Jan 2022-Nov 2025), RTL Technologies (2017-2022), and Three X Electronics (2014-2016)." }
 ];
 
 const greetingResponses = [
-    "Hello! I'm Lakhan's portfolio assistant. Ask about his HSBC Conversational AI work, Healthcare HRMS, E-commerce AI, skills, projects, achievements, certifications, cricket, or contact details.",
-    "Hi! I can tell you about Lakhan Singh - Sr. Product Manager with 5+ years in Digital Banking, HRMS, and E-commerce AI. What would you like to know?",
-    "Hey! Ask me about Protiviti/HSBC, CloudsR Technology, RTL Technologies, key metrics (containment 68->82%, NPS +11), or how to connect with Lakhan."
+    "Hello! I answer questions from Lakhan's portfolio: HSBC Conversational AI, Agentic AI HRMS, UPI gateway, impact metrics, experience, toolkit, or contact.",
+    "Hi! Ask about Lakhan Singh - Digital Product Manager (Conversational AI, Agentic AI, Enterprise SaaS). 12+ years professional experience.",
+    "Hey! Try 'What is the HSBC containment result?', 'Tell me about Agentic AI HRMS', or 'How do I contact Lakhan?'"
 ];
 
 const defaultResponses = [
-    "I can help with experience (Protiviti/HSBC, CloudsR, RTL, Three X), 5 featured projects, skills, achievements, certifications, cricket, or contact info.",
-    "Try: 'Tell me about HSBC containment optimization', 'What is his HRMS chatbot impact?', 'How to contact Lakhan?', or 'What skills does he have?'",
-    "Ask about his current HSBC role, CloudsR HRMS/AI projects, metrics, certifications, or website lakhanrajputaipm.in."
+    "I can cover: 6 featured projects, 4 roles, selected impact metrics, product toolkit, certifications, cricket, or contact details.",
+    "Ask about HSBC (68->82% containment), Agentic HRMS (45% automation), UPI gateway, shopping assistant (1M+ users), or lakhanrajputaipm.in.",
+    "Try keywords like Protiviti, CloudsR, Agentic AI, UPI, HRMS, NPS, or stakeholder management."
 ];
 
 function getChatbotResponse(userMessage) {
@@ -468,6 +450,12 @@ function getChatbotResponse(userMessage) {
     if (matchedKeywords.length >= 2) {
         if (matchedKeywords.some(k => ['hsbc', 'containment', 'protiviti', 'banking'].includes(k))) {
             return chatbotKnowledge.projectContainment;
+        }
+        if (matchedKeywords.some(k => ['agentic', 'orchestration', 'multi-agent'].includes(k))) {
+            return chatbotKnowledge.projectAgenticHRMS;
+        }
+        if (matchedKeywords.some(k => ['upi', 'merchant', 'payment', 'npci'].includes(k))) {
+            return chatbotKnowledge.projectUPI;
         }
         if (matchedKeywords.some(k => ['hrms', 'healthcare', 'cloudsr', 'employee'].includes(k))) {
             return chatbotKnowledge.projectHRMS;
@@ -555,3 +543,22 @@ chatbotInput.addEventListener('keypress', (e) => {
         sendMessage();
     }
 });
+
+// 3D tilt on cards (mouse)
+document.querySelectorAll('[data-tilt]').forEach((card) => {
+    const maxTilt = 10;
+
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rotateY = ((x / rect.width) - 0.5) * maxTilt * 2;
+        const rotateX = ((0.5 - y / rect.height)) * maxTilt * 2;
+        card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(8px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+    });
+});
+
